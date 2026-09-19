@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodFly - Food Sharing</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f8f5;
+            color: #29483c;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 220px;
+            height: 100vh;
+            background: white;
+            padding: 20px 15px;
+            border-right: 1px solid #e2ebe6;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: #21a36d;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 23px;
+        }
+
+        .logo h2 {
+            color: #168658;
+            font-size: 22px;
+        }
+
+        .logo small {
+            color: #82918b;
+            font-size: 8px;
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu li {
+            margin: 6px 0;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 12px;
+            color: #536860;
+            text-decoration: none;
+            border-radius: 9px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .menu a:hover,
+        .menu .active {
+            background: #dff4e8;
+            color: #118357;
+            font-weight: bold;
+        }
+
+        .badge {
+            margin-left: auto;
+            background: #edf6f1;
+            color: #19885e;
+            padding: 3px 7px;
+            border-radius: 15px;
+            font-size: 9px;
+        }
+
+        .red {
+            background: #ed6262;
+            color: white;
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+            bottom: 20px;
+            left: 15px;
+            right: 15px;
+            background: #eef9e9;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            color: #4a8054;
+        }
+
+        .sidebar-bottom h3 {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .sidebar-bottom p {
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            margin-left: 220px;
+            min-height: 100vh;
+        }
+
+        /* ================= TOP BAR ================= */
+
+        .topbar {
+            height: 72px;
+            background: white;
+            border-bottom: 1px solid #e2ebe6;
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+        }
+
+        .top-title {
+            flex: 1;
+            text-align: center;
+        }
+
+        .top-title h3 {
+            color: #278b66;
+            font-family: Georgia, serif;
+            font-size: 16px;
+        }
+
+        .top-title p {
+            font-size: 9px;
+            color: #899791;
+            margin-top: 4px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 10px;
+        }
+
+        .stat {
+            background: #f1f8f4;
+            padding: 8px 12px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            color: #15875c;
+            font-size: 12px;
+        }
+
+        .stat span {
+            color: #85938e;
+            font-size: 8px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 15px;
+        }
+
+        .profile-img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #ffd9bf;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+        }
+
+        .profile strong {
+            display: block;
+            font-size: 11px;
+        }
+
+        .profile small {
+            color: #899791;
+            font-size: 8px;
+        }
+
+        /* ================= DASHBOARD ================= */
+
+        .dashboard {
+            padding: 20px;
+        }
+
+        .top-section {
+            display: grid;
+            grid-template-columns: 1fr 310px;
+            gap: 16px;
+        }
+
+        /* WELCOME */
+
+        .welcome {
+            min-height: 185px;
+            border-radius: 17px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(
+                120deg,
+                #e6f8e8,
+                #fff7d5
+            );
+        }
+
+        .welcome h1 {
+            color: #216052;
+            font-size: 23px;
+            margin-bottom: 7px;
+        }
+
+        .welcome h3 {
+            color: #2b8667;
+            font-size: 14px;
+            margin-bottom: 14px;
+        }
+
+        .welcome p {
+            color: #65776f;
+            font-size: 11px;
+            line-height: 1.6;
+            width: 55%;
+        }
+
+        .explore {
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: #15895d;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .explore:hover {
+            background: #0c6d4a;
+        }
+
+        .food-icon {
+            position: absolute;
+            right: 70px;
+            top: 48px;
+            font-size: 78px;
+        }
+
+        .love {
+            position: absolute;
+            right: 20px;
+            top: 22px;
+            color: #f24d76;
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        /* ================= REQUEST FORM ================= */
+
+        .request {
+            background: white;
+            border-radius: 15px;
+            padding: 17px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.04);
+        }
+
+        .request-heading {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 5px;
+        }
+
+        .request-heading span {
+            background: #e7f6ed;
+            padding: 7px;
+            border-radius: 50%;
+        }
+
+        .request-heading h3 {
+            font-size: 14px;
+        }
+
+        .request > p {
+            color: #89958f;
+            font-size: 9px;
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            margin: 8px 0 4px;
+            font-size: 9px;
+            font-weight: bold;
+            color: #53665e;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border: 1px solid #dce6e1;
+            border-radius: 7px;
+            padding: 9px;
+            outline: none;
+            font-size: 10px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #1b9a69;
+        }
+
+        textarea {
+            height: 52px;
+            resize: none;
+        }
+
+        .submit {
+            width: 100%;
+            border: none;
+            margin-top: 11px;
+            padding: 10px;
+            background: #10885c;
+            color: white;
+            border-radius: 7px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit:hover {
+            background: #0b704c;
+        }
+
+        /* ================= ACTION CARDS ================= */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .card {
+            padding: 15px;
+            min-height: 110px;
+            border-radius: 13px;
+        }
+
+        .card h4 {
+            font-size: 11px;
+            margin: 7px 0 4px;
+        }
+
+        .card p {
+            color: #728079;
+            font-size: 8px;
+            line-height: 1.4;
+        }
+
+        .card button {
+            border: none;
+            color: white;
+            border-radius: 15px;
+            padding: 7px 12px;
+            font-size: 8px;
+            margin-top: 8px;
+            cursor: pointer;
+        }
+
+        .share {
+            background: #e9f9e9;
+        }
+
+        .share button {
+            background: #1ba05f;
+        }
+
+        .requests {
+            background: #fff0e8;
+        }
+
+        .requests button {
+            background: #f47745;
+        }
+
+        .nearby {
+            background: #eeeaff;
+        }
+
+        .nearby button {
+            background: #6953d9;
+        }
+
+        .donations {
+            background: #eaf6ff;
+        }
+
+        .donations button {
+            background: #3b8fd4;
+        }
+
+        /* ================= BOTTOM ================= */
+
+        .bottom {
+            display: grid;
+            grid-template-columns: 1fr 310px;
+            gap: 16px;
+            margin-top: 15px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 14px;
+            padding: 15px;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .section-title h3 {
+            font-size: 13px;
+        }
+
+        .section-title span {
+            color: #16885d;
+            font-size: 9px;
+            cursor: pointer;
+        }
+
+        /* FOOD */
+
+        .foods {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .food {
+            border: 1px solid #e5ebe8;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .food-img {
+            height: 78px;
+            background: #fff3d8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 42px;
+        }
+
+        .food-info {
+            padding: 8px;
+        }
+
+        .food-info h4 {
+            font-size: 10px;
+            margin-bottom: 4px;
+        }
+
+        .food-info p {
+            color: #89958f;
+            font-size: 8px;
+        }
+
+        /* ACTIVITY */
+
+        .activity {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 0;
+            border-bottom: 1px solid #edf1ef;
+        }
+
+        .activity:last-child {
+            border: none;
+        }
+
+        .activity-icon {
+            width: 30px;
+            height: 30px;
+            background: #edf7f1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .activity-text {
+            flex: 1;
+        }
+
+        .activity-text strong {
+            font-size: 9px;
+        }
+
+        .activity-text p {
+            color: #89958f;
+            font-size: 8px;
+            margin-top: 3px;
+        }
+
+        .status {
+            background: #dff4e6;
+            color: #19875d;
+            padding: 3px 6px;
+            border-radius: 10px;
+            font-size: 7px;
+        }
+
+        /* ================= TOAST ================= */
+
+        #message {
+            display: none;
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #16865b;
+            color: white;
+            padding: 13px 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.2);
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 1000px) {
+
+            .sidebar {
+                width: 180px;
+            }
+
+            .main {
+                margin-left: 180px;
+            }
+
+            .top-section,
+            .bottom {
+                grid-template-columns: 1fr;
+            }
+
+            .foods {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 700px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .stats {
+                display: none;
+            }
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .welcome p {
+                width: 70%;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                🪽
+            </div>
+
+            <div>
+                <h2>FoodFly</h2>
+                <small>SHARE • CONNECT • CARE</small>
+            </div>
+
+        </div>
+
+
+        <ul class="menu">
+
+            <li>
+                <a class="active" onclick="message('Dashboard opened')">
+                    🏠 Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a onclick="message('Share Meals opened')">
+                    🍱 Share Meals
+                    <span class="badge">2</span>
+                </a>
+            </li>
+
+            <li>
+                <a onclick="message('Food Requests opened')">
+                    ❤️ Food Requests
+                    <span class="badge">3</span>
+                </a>
+            </li>
+
+            <li>
+                <a onclick="message('Nearby Food opened')">
+                    📍 Nearby Food
+                    <span class="badge">4</span>
+                </a>
+            </li>
+
+            <li>
+                <a onclick="message('My Donations opened')">
+                    🎁 My Donations
+                    <span class="badge">5</span>
+                </a>
+            </li>
+
+            <li>
+                <a onclick="message('Community opened')">
+                    👥 Community
+                    <span class="badge">7</span>
+                </a>
+            </li>
+
+            <li>
+                <a onclick="message('My Impact opened')">
+                    🌱 My Impact
+                    <span class="badge">8</span>
+                </a>
+            </li>
+
+            <li>
+                <a onclick="message('Notifications opened')">
+                    🔔 Notifications
+                    <span class="badge red">3</span>
+                </a>
+            </li>
+
+            <li>
+                <a onclick="message('Settings opened')">
+                    ⚙️ Settings
+                    <span class="badge">10</span>
+                </a>
+            </li>
+
+        </ul>
+
+
+        <div class="sidebar-bottom">
+
+            <h3>🌿 Good Food</h3>
+
+            <p>
+                Brings People<br>
+                Together ❤️
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <div class="main">
+
+        <!-- TOP BAR -->
+
+        <div class="topbar">
+
+            <div class="top-title">
+
+                <h3>
+                    Real Food 🍲 Real People ❤️ A Better Tomorrow
+                </h3>
+
+                <p>
+                    Connect surplus food with people in need.
+                </p>
+
+            </div>
+
+
+            <div class="stats">
+
+                <div class="stat">
+                    <strong>15,820+</strong>
+                    <span>Meals Shared</span>
+                </div>
+
+                <div class="stat">
+                    <strong>1,260+</strong>
+                    <span>Active Donors</span>
+                </div>
+
+            </div>
+
+
+            <div class="profile">
+
+                <div class="profile-img">
+                    👩
+                </div>
+
+                <div>
+                    <strong>Hi, vijay!</strong>
+                    <small>Make an impact</small>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DASHBOARD -->
+
+        <div class="dashboard">
+
+            <div class="top-section">
+
+                <!-- WELCOME -->
+
+                <div class="welcome">
+
+                    <div class="love">
+                        ❤️ Food<br>
+                        is Love
+                    </div>
+
+                    <h1>
+                        Welcome Back, vijay!
+                    </h1>
+
+                    <h3>
+                        Let's make a difference together.
+                    </h3>
+
+                    <p>
+                        Your small act of kindness can help someone
+                        have a good meal today.
+                    </p>
+
+                    <button
+                        class="explore"
+                        onclick="message('Exploring FoodFly food listings!')">
+
+                        Explore Food →
+                    </button>
+
+                    <div class="food-icon">
+                        🍲
+                    </div>
+
+                </div>
+
+
+                <!-- REQUEST FOOD -->
+
+                <div class="request">
+
+                    <div class="request-heading">
+
+                        <span>🍲</span>
+
+                        <h3>
+                            Request Food
+                        </h3>
+
+                    </div>
+
+                    <p>
+                        Fill in your details to request food assistance.
+                    </p>
+
+
+                    <form id="foodForm">
+
+                        <label>
+                            Food Category *
+                        </label>
+
+                        <select required>
+
+                            <option value="">
+                                Select category
+                            </option>
+
+                            <option>
+                                Rice & Meals
+                            </option>
+
+                            <option>
+                                Fruits
+                            </option>
+
+                            <option>
+                                Vegetables
+                            </option>
+
+                            <option>
+                                Snacks
+                            </option>
+
+                            <option>
+                                Bakery
+                            </option>
+
+                        </select>
+
+
+                        <label>
+                            Quantity (Meals) *
+                        </label>
+
+                        <input
+                            type="number"
+                            placeholder="e.g. 5, 10, 20"
+                            required
+                        >
+
+
+                        <label>
+                            Location *
+                        </label>
+
+                        <input
+                            type="text"
+                            placeholder="Enter your area or city"
+                            required
+                        >
+
+
+                        <label>
+                            Phone Number *
+                        </label>
+
+                        <input
+                            type="tel"
+                            placeholder="+91 98765 43210"
+                            required
+                        >
+
+
+                        <label>
+                            Additional Information
+                        </label>
+
+                        <textarea
+                            placeholder="Tell us anything important..."
+                        ></textarea>
+
+
+                        <button class="submit" type="submit">
+                            🚀 Submit Request
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACTION CARDS -->
+
+            <div class="cards">
+
+                <div class="card share">
+
+                    <div>🍱</div>
+
+                    <h4>
+                        Share Meals
+                    </h4>
+
+                    <p>
+                        Donate extra food and reduce waste.
+                    </p>
+
+                    <button onclick="message('Share Meal selected')">
+                        Donate Now →
+                    </button>
+
+                </div>
+
+
+                <div class="card requests">
+
+                    <div>❤️</div>
+
+                    <h4>
+                        Food Requests
+                    </h4>
+
+                    <p>
+                        Need food? Get help from local donors.
+                    </p>
+
+                    <button onclick="message('Food Request selected')">
+                        Request Now →
+                    </button>
+
+                </div>
+
+
+                <div class="card nearby">
+
+                    <div>📍</div>
+
+                    <h4>
+                        Nearby Food
+                    </h4>
+
+                    <p>
+                        Find fresh meals near your location.
+                    </p>
+
+                    <button onclick="message('Finding nearby food')">
+                        View Nearby →
+                    </button>
+
+                </div>
+
+
+                <div class="card donations">
+
+                    <div>👥</div>
+
+                    <h4>
+                        My Donations
+                    </h4>
+
+                    <p>
+                        Track your shared meals and impact.
+                    </p>
+
+                    <button onclick="message('Donation details opened')">
+                        View Details →
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOTTOM SECTION -->
+
+            <div class="bottom">
+
+                <!-- FEATURED FOOD -->
+
+                <div class="section">
+
+                    <div class="section-title">
+
+                        <h3>
+                            🍃 Featured Food Listings
+                        </h3>
+
+                        <span onclick="message('Showing all food listings')">
+                            View All →
+                        </span>
+
+                    </div>
+
+
+                    <div class="foods">
+
+                        <div class="food">
+
+                            <div class="food-img">
+                                🍚
+                            </div>
+
+                            <div class="food-info">
+
+                                <h4>
+                                    Fresh Rice Meal
+                                </h4>
+
+                                <p>
+                                    📍 1.2 km away
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="food">
+
+                            <div
+                                class="food-img"
+                                style="background:#fff0d8;">
+
+                                🥪
+
+                            </div>
+
+                            <div class="food-info">
+
+                                <h4>
+                                    Sandwich Pack
+                                </h4>
+
+                                <p>
+                                    📍 2.0 km away
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="food">
+
+                            <div
+                                class="food-img"
+                                style="background:#ffe9dd;">
+
+                                🍳
+
+                            </div>
+
+                            <div class="food-info">
+
+                                <h4>
+                                    Breakfast Combo
+                                </h4>
+
+                                <p>
+                                    📍 2.5 km away
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="food">
+
+                            <div
+                                class="food-img"
+                                style="background:#fff3d8;">
+
+                                🍎
+
+                            </div>
+
+                            <div class="food-info">
+
+                                <h4>
+                                    Fresh Fruits
+                                </h4>
+
+                                <p>
+                                    📍 3.1 km away
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RECENT ACTIVITY -->
+
+                <div class="section">
+
+                    <div class="section-title">
+
+                        <h3>
+                            🔔 Recent Activity
+                        </h3>
+
+                        <span onclick="message('Showing all activity')">
+                            View All →
+                        </span>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            👩
+                        </div>
+
+                        <div class="activity-text">
+
+                            <strong>
+                                Ananya
+                            </strong>
+
+                            <p>
+                                Requested 3 meals • 1 hr ago
+                            </p>
+
+                        </div>
+
+                        <span class="status">
+                            Active
+                        </span>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            👨
+                        </div>
+
+                        <div class="activity-text">
+
+                            <strong>
+                                Rahul
+                            </strong>
+
+                            <p>
+                                Shared 10 meals • 2 hrs ago
+                            </p>
+
+                        </div>
+
+                        <span class="status">
+                            Done
+                        </span>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            👩
+                        </div>
+
+                        <div class="activity-text">
+
+                            <strong>
+                                Priya
+                            </strong>
+
+                            <p>
+                                Donated fruits • 3 hrs ago
+                            </p>
+
+                        </div>
+
+                        <span class="status">
+                            Done
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MESSAGE -->
+
+    <div id="message">
+        Action completed!
+    </div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        function message(text) {
+
+            let box = document.getElementById("message");
+
+            box.innerHTML = text;
+
+            box.style.display = "block";
+
+            setTimeout(function() {
+
+                box.style.display = "none";
+
+            }, 2000);
+        }
+
+
+        document
+            .getElementById("foodForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                message("🎉 Food request submitted successfully!");
+
+                this.reset();
+
+            });
+
+    </script>
+
+</body>
+</html>
